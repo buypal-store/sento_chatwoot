@@ -34,35 +34,20 @@
 
     <!-- MODAL RESUMEN (antes de enviar) -->
     <div id="summaryModal" class="modal hidden" role="dialog" aria-modal="true">
-      <div class="modal-card summary-card">
-        <button id="summaryClose" class="modal-close">✕</button>
-        <div class="summary-body">
-          <div class="summary-title">Resumen del pedido</div>
-          <div id="summaryLines" class="summary-lines"></div>
-          <div class="summary-totals">
-  <div class="row discount">
-    <span>Subtotal</span>
-    <span id="sumSubtotal">S/ 0</span>
-  </div>
-  <div class="row discount">
-    <span>Descuento</span>
-    <span id="sumDiscountValue">S/ 0</span>
-  </div>
-  <div class="divider"></div>
-  <div class="row final">
-    <span>TOTAL FINAL</span>
-    <span id="sumFinal">S/ 0</span>
+  <div class="modal-card summary-card">
+    <button id="summaryClose" class="modal-close">✕</button>
+    <div class="summary-body">
+      <div class="summary-title">Resumen del pedido</div>
+      <div id="summaryLines" class="summary-lines"></div>
+      <!-- Bloque estático ELIMINADO para evitar duplicado con lo que genera app.js -->
+    </div>
+    <div style="margin-top:16px;">
+      <button id="btnIrPedidoFinal" class="btn big" style="width:100%; background:#22c55e; color:#000; font-weight:900;">
+        📋 Continuar con el pedido
+      </button>
+    </div>
   </div>
 </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button id="btnIrPedidoFinal" class="btn big" style="width:100%; background:#22c55e; color:#000; font-weight:900;">
-              📋 Continuar con el pedido
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- MODAL PEDIDO FINAL (todos los campos) -->
     <div id="pedidoModal" class="modal hidden" role="dialog" aria-modal="true">
