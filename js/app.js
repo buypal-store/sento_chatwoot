@@ -322,11 +322,11 @@ function autocompletarCampos(datos) {
     numero: 'campoCelular',
     direccion: 'campoDireccion',
     distrito: 'campoDistrito',
-    zona: 'campoZona',
     correo: 'campoCorreo',
     agente: 'campoAgente',
-    metodo_pago: 'campoFormaPago',
-    tipo_envio: 'campoReparto',
+    ruc: 'campoRUC',                 // ← faltaba
+    comprobante: 'campoBoleta',      // ← nuevo: Boleta/Factura automático
+    forma_de_pago: 'campoFormaPago', // ← antes decía metodo_pago
     live: 'campoPlataforma',
     link_maps: 'campoUbicacion',
     adelanto: 'campoAdelanto',
