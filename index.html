@@ -26,7 +26,7 @@
     <section class="catalog">
       <div class="catalog-toolbar">
         <div class="search">
-          <input id="searchInput" type="text" placeholder="Buscar escalera..." />
+          <input id="searchInput" type="text" placeholder="Buscar escalera..." autocomplete="off" />
         </div>
       </div>
       <div id="productGrid" class="grid"></div>
@@ -82,9 +82,9 @@
           <div id="camposPedido" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; font-size:11px;">
             <!-- Columna 1 -->
             <div>
-              <label>Agente</label><input id="campoAgente" class="campo-pedido">
+              <label>Agente</label><input id="campoAgente" class="campo-pedido" autocomplete="off">
               <label style="margin-top:6px;">Rep</label>
-              <select id="campoReparto" class="campo-pedido">
+              <select id="campoReparto" class="campo-pedido" autocomplete="off">
                 <option value="">-</option>
                 <option value="Van">Van</option>
                 <option value="M">M</option>
@@ -93,14 +93,14 @@
                 <option value="Gustavo">Gustavo</option>
               </select>
               <label style="margin-top:6px;">T</label>
-              <select id="campoTurno" class="campo-pedido">
+              <select id="campoTurno" class="campo-pedido" autocomplete="off">
                 <option value="M">M</option>
                 <option value="T" selected>T</option>
                 <option value="N">N</option>
               </select>
-              <label style="margin-top:6px;">Monto</label><input id="campoMonto" class="campo-pedido" readonly style="color:#22c55e; font-weight:900;">
+              <label style="margin-top:6px;">Monto</label><input id="campoMonto" class="campo-pedido" readonly style="color:#22c55e; font-weight:900;" autocomplete="off">
               <label style="margin-top:6px;">Forma de Pago</label>
-              <select id="campoFormaPago" class="campo-pedido">
+              <select id="campoFormaPago" class="campo-pedido" autocomplete="off">
                 <option value="">-</option>
                 <option value="Pagado">Pagado</option>
                 <option value="Yape">Yape</option>
@@ -108,44 +108,44 @@
                 <option value="Transferencia">Transferencia</option>
                 <option value="Efectivo">Efectivo</option>
               </select>
-              <label style="margin-top:6px;">Pago</label><input id="campoPago" class="campo-pedido">
+              <label style="margin-top:6px;">Pago</label><input id="campoPago" class="campo-pedido" autocomplete="off">
               <label style="margin-top:6px;">Boleta o Factura</label>
-              <select id="campoBoleta" class="campo-pedido">
+              <select id="campoBoleta" class="campo-pedido" autocomplete="off">
                 <option value="">-</option>
                 <option value="Boleta">Boleta</option>
                 <option value="Factura">Factura</option>
               </select>
-              <label style="margin-top:6px;">Observación</label><input id="campoObservacion" class="campo-pedido" placeholder="-">
-              <label style="margin-top:6px;">Comisión</label><input id="campoComision" class="campo-pedido" placeholder="-">
+              <label style="margin-top:6px;">Observación</label><input id="campoObservacion" class="campo-pedido" placeholder="-" autocomplete="off">
+              <label style="margin-top:6px;">Comisión</label><input id="campoComision" class="campo-pedido" placeholder="-" autocomplete="off">
             </div>
             <!-- Columna 2 -->
             <div>
-              <label>RUC</label><input id="campoRUC" class="campo-pedido" placeholder="-">
-              <label style="margin-top:6px;">Medio</label><input id="campoMedio" class="campo-pedido" value="BP">
-              <label style="margin-top:6px;">Plataforma</label><input id="campoPlataforma" class="campo-pedido">
-              <label style="margin-top:6px;">Tipo</label><input id="campoTipo" class="campo-pedido" value="Menor">
-              <label style="margin-top:6px;">DNI</label><input id="campoDNI" class="campo-pedido">
-              <label style="margin-top:6px;">Cliente</label><input id="campoCliente" class="campo-pedido">
-              <label style="margin-top:6px;">Celular</label><input id="campoCelular" class="campo-pedido">
-              <label style="margin-top:6px;">Ubicación</label><input id="campoUbicacion" class="campo-pedido">
-              <label style="margin-top:6px;">Envío a cliente</label><input id="campoEnvioCliente" class="campo-pedido" placeholder="-">
+              <label>RUC</label><input id="campoRUC" class="campo-pedido" placeholder="-" autocomplete="off">
+              <label style="margin-top:6px;">Medio</label><input id="campoMedio" class="campo-pedido" value="BP" autocomplete="off">
+              <label style="margin-top:6px;">Plataforma</label><input id="campoPlataforma" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Tipo</label><input id="campoTipo" class="campo-pedido" value="Menor" autocomplete="off">
+              <label style="margin-top:6px;">DNI</label><input id="campoDNI" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Cliente</label><input id="campoCliente" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Celular</label><input id="campoCelular" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Ubicación</label><input id="campoUbicacion" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Envío a cliente</label><input id="campoEnvioCliente" class="campo-pedido" placeholder="-" autocomplete="off">
             </div>
             <!-- Columna 3 -->
             <div>
-              <label>Dirección</label><input id="campoDireccion" class="campo-pedido">
-              <label style="margin-top:6px;">Distrito</label><input id="campoDistrito" class="campo-pedido">
-              <label style="margin-top:6px;">Zona</label><input id="campoZona" class="campo-pedido">
-              <label style="margin-top:6px;">Cobro</label><input id="campoCobro" class="campo-pedido">
-              <label style="margin-top:6px;">Referencia</label><input id="campoReferencia" class="campo-pedido">
-              <label style="margin-top:6px;">Obs.3</label><input id="campoCorreo" class="campo-pedido">
+              <label>Dirección</label><input id="campoDireccion" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Distrito</label><input id="campoDistrito" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Zona</label><input id="campoZona" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Cobro</label><input id="campoCobro" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Referencia</label><input id="campoReferencia" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Obs.3</label><input id="campoCorreo" class="campo-pedido" autocomplete="off">
               <label style="margin-top:6px;">Estado</label>
-              <select id="campoEstado" class="campo-pedido">
+              <select id="campoEstado" class="campo-pedido" autocomplete="off">
                 <option value="Entregado" selected>Entregado</option>
                 <option value="Pendiente">Pendiente</option>
                 <option value="Anulado">Anulado</option>
               </select>
-              <label style="margin-top:6px;">Validación</label><input id="campoValidacion" class="campo-pedido">
-              <label style="margin-top:6px;">Adelanto</label><input id="campoAdelanto" class="campo-pedido">
+              <label style="margin-top:6px;">Validación</label><input id="campoValidacion" class="campo-pedido" autocomplete="off">
+              <label style="margin-top:6px;">Adelanto</label><input id="campoAdelanto" class="campo-pedido" autocomplete="off">
             </div>
           </div>
 
