@@ -378,7 +378,16 @@ function init() {
   const pedidoModal = el("pedidoModal");
   if (pedidoModal) pedidoModal.addEventListener("click", (e) => { if (e.target.id === "pedidoModal") cerrarPedidoFinal(); });
 
-  actualizarContador();
+    actualizarContador();
+  desactivarAutocompletado();
+}
+
+// ---------- DESACTIVAR SUGERENCIAS DEL NAVEGADOR ----------
+function desactivarAutocompletado() {
+  document.querySelectorAll('.campo-pedido, #searchInput').forEach(campo => {
+    campo.setAttribute('autocomplete', 'off');
+    campo.setAttribute('autocomplete', 'new-password'); // truco anti-Chrome
+  });
 }
 
 document.addEventListener("DOMContentLoaded", init);
