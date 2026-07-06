@@ -82,6 +82,8 @@
           <div id="camposPedido" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; font-size:11px;">
             <!-- Columna 1 -->
             <div>
+                <label>📅 Fecha</label>
+    <input id="campoFecha" type="date" class="campo-pedido" autocomplete="off">
               <label>Agente</label><input id="campoAgente" class="campo-pedido" autocomplete="off">
               <label style="margin-top:6px;">Rep</label>
               <select id="campoReparto" class="campo-pedido" autocomplete="off">
@@ -115,8 +117,13 @@
                 <option value="Boleta">Boleta</option>
                 <option value="Factura">Factura</option>
               </select>
-              <label style="margin-top:6px;">Observación</label><input id="campoObservacion" class="campo-pedido" placeholder="-" autocomplete="off">
-              <label style="margin-top:6px;">Comisión</label><input id="campoComision" class="campo-pedido" placeholder="-" autocomplete="off">
+              <label style="margin-top:6px;">Observación</label>
+              <input id="campoObservacion" class="campo-pedido" placeholder="-" autocomplete="off">
+              
+              <div id="campoComisionWrapper" style="display:none;">
+                <label style="margin-top:0;">Comisión</label>
+                <input id="campoComision" class="campo-pedido" placeholder="-" autocomplete="off" value="">
+              </div>
             </div>
             <!-- Columna 2 -->
             <div>

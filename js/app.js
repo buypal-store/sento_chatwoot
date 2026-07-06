@@ -269,7 +269,8 @@ function enviarPedido() {
     estado: el("campoEstado")?.value || "Entregado",
     validacion: el("campoValidacion")?.value || "",
     adelanto: el("campoAdelanto")?.value || "",
-    conversation_id: new URLSearchParams(window.location.search).get('conversation_id') || ""
+    conversation_id: new URLSearchParams(window.location.search).get('conversation_id') || "",
+    fecha: document.getElementById('campoFecha')?.value || "" // 👈 NUEVA LÍNEA
   };
 
   console.log("📤 Enviando a n8n:", payload);
@@ -372,16 +373,33 @@ function init() {
   el("pedidoClose")?.addEventListener("click", cerrarPedidoFinal);
   el("btnEnviarPedido")?.addEventListener("click", enviarPedido);
 
-  // Cerrar modales al hacer clic fuera
   const summaryModal = el("summaryModal");
   if (summaryModal) summaryModal.addEventListener("click", (e) => { if (e.target.id === "summaryModal") cerrarResumen(); });
   const pedidoModal = el("pedidoModal");
   if (pedidoModal) pedidoModal.addEventListener("click", (e) => { if (e.target.id === "pedidoModal") cerrarPedidoFinal(); });
 
-    actualizarContador();
+  actualizarContador();
   desactivarAutocompletado();
-}
 
+  // 👇 NUEVO: fecha de hoy
+  const fechaInput = document.getElementById('campoFecha');
+  if (fechaInput) {
+    const hoy = new Date();
+    const fechaFormateada = hoy.getFullYear() + '-' +
+      String(hoy.getMonth() + 1).padStart(2, '0') + '-' +
+      String(hoy.getDate()).padStart(2, '0');
+    fechaInput.value = fechaFormateada;
+  }
+}
+// Asignar fecha de hoy al campo
+const fechaInput = document.getElementById('campoFecha');
+if (fechaInput) {
+  const hoy = new Date();
+  const fechaFormateada = hoy.getFullYear() + '-' +
+    String(hoy.getMonth() + 1).padStart(2, '0') + '-' +
+    String(hoy.getDate()).padStart(2, '0');
+  fechaInput.value = fechaFormateada;
+}
 // ---------- DESACTIVAR SUGERENCIAS DEL NAVEGADOR ----------
 function desactivarAutocompletado() {
   document.querySelectorAll('.campo-pedido, #searchInput').forEach(campo => {
