@@ -3,8 +3,8 @@ window.productosData = [
   { sku: "ESCALERA-2-PASOS", nombre: "Escalera 2 pasos", precio: 69, imagen: "imagenes/escalera-2-pasos.jpg" },
   { sku: "ESCALERA-3-PASOS", nombre: "Escalera 3 pasos", precio: 79, imagen: "imagenes/escalera-3-pasos.jpg" },
   { sku: "ESCALERA-4-PASOS", nombre: "Escalera 4 pasos", precio: 89, imagen: "imagenes/escalera-4-pasos.jpg" },
-  { sku: "ESCALERA-5-PASOS", nombre: "Escalera 5 pasos", precio: 99, imagen: "imagenes/escalera-5-pasos.jpg" },
-  { sku: "ESCALERA-6-PASOS", nombre: "Escalera 6 pasos", precio: 109, imagen: "imagenes/escalera-6-pasos.jpg" },
+  { sku: "ESCALERA-5-PASOS", nombre: "Escalera 5 pasos", precio: 99, imagen: "imagenes/escalera-6-pasos.jpg" },
+  { sku: "ESCALERA-6-PASOS", nombre: "Escalera 6 pasos", precio: 109, imagen: "imagenes/escalera-5-pasos.jpg" },
   { sku: "ESCALERA-7-PASOS", nombre: "Escalera 7 pasos", precio: 119, imagen: "https://placehold.co/400x300/1e293b/white?text=Escalera+7+pasos" },
 
   // --- 8 PASOS ---
@@ -13,13 +13,13 @@ window.productosData = [
   // --- TUBULARES ---
   { sku: "ESCALERA-1-PASOS-TUBULAR", nombre: "Escalera 1 paso tubular", precio: 69, imagen: "imagenes/escalera-1-paso-tubular.jpg" },
   { sku: "ESCALERA-3-PASOS-TUBULAR", nombre: "Escalera 3 pasos tubular", precio: 109, imagen: "imagenes/escalera-3-pasos-tubular.jpg" },
-  { sku: "ESCALERA-4-PASOS-TUBULAR", nombre: "Escalera 4 pasos tubular", precio: 129, imagen: "imagenes/escalera-4-pasos-tubular.jpg" },
-  { sku: "ESCALERA-6-PASOS-TUBULAR", nombre: "Escalera 6 pasos tubular", precio: 159, imagen: "imagenes/escalera-6-pasos-tubular.jpg" },
+  { sku: "ESCALERA-4-PASOS-TUBULAR", nombre: "Escalera 4 pasos tubular", precio: 129, imagen: "imagenes/escalera-6-pasos-tubular.jpg" },
+  { sku: "ESCALERA-6-PASOS-TUBULAR", nombre: "Escalera 6 pasos tubular", precio: 159, imagen: "imagenes/escalera-4-pasos-tubular.jpg" },
 
   // --- ALUMINIO ---
   { sku: "ESCALERA-3-PASOS-ALUMINIO", nombre: "Escalera 3 pasos aluminio", precio: 119, imagen: "imagenes/escalera-3-pasos-aluminio.jpg" },
-  { sku: "ESCALERA-4-PASOS-ALUMINIO", nombre: "Escalera 4 pasos aluminio", precio: 129, imagen: "imagenes/escalera-4-pasos-aluminio.jpg" },
-  { sku: "ESCALERA-6-PASOS-ALUMINIO", nombre: "Escalera 6 pasos aluminio", precio: 149, imagen: "imagenes/escalera-6-pasos-aluminio.jpg" },
+  { sku: "ESCALERA-4-PASOS-ALUMINIO", nombre: "Escalera 4 pasos aluminio", precio: 129, imagen: "imagenes/escalera-6-pasos-aluminio.jpg" },
+  { sku: "ESCALERA-6-PASOS-ALUMINIO", nombre: "Escalera 6 pasos aluminio", precio: 149, imagen: "imagenes/escalera-4-pasos-aluminio.jpg" },
 
   // --- C&A ---
   { sku: "ESCALERA-4-PASOS-C&A", nombre: "Escalera 4 pasos C&A", precio: 119, imagen: "imagenes/escalera-4-pasos-cya.jpg" },
@@ -54,7 +54,7 @@ window.productosData = [
   // --- TELESCÓPICAS ---
   { sku: "ESCALERA-TELES-10", nombre: "Escalera telescópica 10", precio: 229, imagen: "imagenes/escalera-teles-10.jpg" },
   { sku: "TRUPER-ESCALERA-TELES-7", nombre: "Truper telescópica 7", precio: 0, imagen: "imagenes/truper-escalera-teles-7.jpg" },
-  { sku: "ESCALERA-TELES-TIJERA-12", nombre: "Escalera telescópica tijera 12", precio: 299, imagen: "imagenes/escalera-teles-tijera-12.jpg" },
+  { sku: "ESCALERA-TELES-TIJERA-12", nombre: "Escalera telescópica tijera 12", precio: 299, imagen: "imagenes/escalera-teles-tijera-12-plegada.jpg" },
 
   // --- ACCESORIOS ---
   { sku: "GUANTES-NYLON", nombre: "Guantes de nylon", precio: 0, imagen: "https://placehold.co/400x300/1e293b/white?text=Guantes+Nylon" },
