@@ -142,6 +142,19 @@ function toggleRegalo(cartId) {
   state.finalTotal = nuevoSubtotal;
   renderResumen();
 }
+// Eliminar producto del carrito desde el resumen
+function eliminarDelCarrito(cartId) {
+  state.cart = state.cart.filter(i => i.cartId !== cartId);
+  const nuevoSubtotal = state.cart.reduce((sum, i) => sum + i.precio, 0);
+  state.finalTotal = nuevoSubtotal;
+  actualizarContador();
+
+  if (state.cart.length === 0) {
+    cerrarResumen();
+    return;
+  }
+  renderResumen();
+}
 
 function renderResumen() {
   const lines = el("summaryLines");
@@ -150,7 +163,6 @@ function renderResumen() {
 
   const subtotal = state.cart.reduce((sum, item) => sum + item.precio, 0);
 
-  // 🔁 Tabla con inputs de precio y columna de regalo
   const table = document.createElement("table");
   table.style.width = "100%";
   table.style.borderCollapse = "collapse";
@@ -162,6 +174,7 @@ function renderResumen() {
         <th style="padding:8px; text-align:left; color:var(--muted);">Producto</th>
         <th style="padding:8px; text-align:right; color:var(--muted);">Precio</th>
         <th style="padding:8px; text-align:center; color:var(--muted);">🎁</th>
+        <th style="padding:8px; text-align:center; color:var(--muted);"></th>
       </tr>
     </thead>
     <tbody id="resumenTablaBody"></tbody>
@@ -187,11 +200,17 @@ function renderResumen() {
                 style="cursor:pointer; font-size:16px; background:none; border:none;"
                 title="Alternar regalo">${item.precio === 0 ? '🎁' : '🎁'}</button>
       </td>
+      <td style="padding:6px 8px; border-bottom:1px solid var(--border); text-align:center;">
+        <button class="btn-eliminar-item" data-cart-id="${item.cartId}"
+                style="cursor:pointer; font-size:15px; background:none; border:none; color:#ef4444; font-weight:700; transition:transform .15s;"
+                onmouseenter="this.style.transform='scale(1.3)'"
+                onmouseleave="this.style.transform='scale(1)'"
+                title="Eliminar producto">✕</button>
+      </td>
     `;
     tbody.appendChild(row);
   });
 
-  // Eventos de los inputs de precio
   document.querySelectorAll('.resumen-price-input').forEach(input => {
     input.addEventListener('focus', function() {
       this.select();
@@ -233,7 +252,6 @@ function renderResumen() {
     });
   });
 
-  // Eventos de los botones de regalo
   document.querySelectorAll('.btn-regalo-toggle').forEach(btn => {
     btn.addEventListener('click', function(e) {
       const cartId = parseInt(this.dataset.cartId);
@@ -241,7 +259,14 @@ function renderResumen() {
     });
   });
 
-  // Totales
+  // ✅ NUEVO: eventos de eliminación
+  document.querySelectorAll('.btn-eliminar-item').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const cartId = parseInt(this.dataset.cartId);
+      eliminarDelCarrito(cartId);
+    });
+  });
+
   const totalBlock = document.createElement("div");
   totalBlock.className = "summary-totals";
   totalBlock.innerHTML = `
@@ -265,7 +290,6 @@ function renderResumen() {
   `;
   lines.appendChild(totalBlock);
 
-  // Sincronizar input con total final
   const inputFinal = el("inputPrecioFinal");
   if (inputFinal) {
     inputFinal.addEventListener("input", function () {
@@ -285,7 +309,6 @@ function renderResumen() {
     };
   }
 }
-
 // ---------- MODAL PEDIDO FINAL (sin cambios) ----------
 function abrirPedidoFinal() {
   if (state.cart.length === 0) {
