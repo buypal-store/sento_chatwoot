@@ -30,59 +30,58 @@ function renderGrid() {
   grid.innerHTML = "";
 
   const productos = window.productosData || [];
- productos.forEach((prod, index) => {
-  const card = document.createElement("div");
-  card.className = "card";
+  productos.forEach((prod, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-  // 👇 NUEVO: índice de búsqueda precalculado
-  const campos = [prod.sku, prod.nombre, prod.marca, prod.categoria, prod.descripcion];
-  const hay = normalizar(campos.filter(Boolean).join(' '));
-  card.dataset.search = hay;                        // "tetina pigeon 3m ..."
-  card.dataset.searchCompact = hay.replace(/\s/g, ''); // "tetinapigeon3m..."
+    // Índice de búsqueda precalculado
+    const campos = [prod.sku, prod.nombre, prod.marca, prod.categoria, prod.descripcion];
+    const hay = normalizar(campos.filter(Boolean).join(' '));
+    card.dataset.search = hay;
+    card.dataset.searchCompact = hay.replace(/\s/g, '');
 
-  card.innerHTML = `
+    const sinStock = (Number(prod.stock) || 0) <= 0;
+    if (sinStock) card.classList.add("agotado");
+
+    card.innerHTML = `
     <div class="card-img">
-      <img src="${prod.imagen || 'assets/images/placeholder.jpg'}" alt="${prod.nombre || 'Escalera'}">
+      <img src="${prod.imagen || 'assets/images/placeholder.jpg'}" alt="${prod.nombre || 'Producto'}">
+      ${sinStock ? '<span class="badge-agotado">Agotado</span>' : ''}
     </div>
     <div class="card-body">
-      <div class="card-name">${prod.nombre || 'Escalera'}</div>
+      <div class="card-name">${prod.nombre || 'Producto'}</div>
       <div class="card-meta">
         <span class="sku-display">${prod.sku || ''}</span>
         <div class="price">${formatPEN(prod.precio)}</div>
       </div>
+      <div class="card-stock" style="font-size:11px;font-weight:700;margin-top:4px;color:${sinStock ? '#ef4444' : (prod.stock > 5 ? '#22c55e' : '#f59e0b')};">
+        ${sinStock ? '🚫 Agotado' : '📦 Stock: ' + prod.stock}
+      </div>
     </div>
     <div class="card-actions">
-      <button class="btn small btn-agregar" data-index="${index}">Agregar</button>
+      <button class="btn small btn-agregar" data-index="${index}" ${sinStock ? 'disabled' : ''}
+        style="${sinStock ? 'opacity:.5;cursor:not-allowed;' : ''}">
+        ${sinStock ? 'Sin stock' : 'Agregar'}
+      </button>
     </div>
   `;
-  grid.appendChild(card);
-});
+    grid.appendChild(card);
+  });
 
-  // Eventos de los botones "Agregar"
+  // Eventos de los botones "Agregar" (solo los habilitados)
   document.querySelectorAll('.btn-agregar').forEach(btn => {
     btn.addEventListener('click', function (e) {
+      if (this.disabled) return;                    // seguridad extra
       const index = parseInt(this.dataset.index);
       const prod = productos[index];
-      const sku = prod.sku;
 
-      // Producto principal (con originalPrice)
       state.cart.push({
         cartId: ++state.cartSeq,
-        sku: sku,
-        nombre: prod.nombre || 'Escalera',
+        sku: prod.sku,
+        nombre: prod.nombre || 'Producto',
         precio: Number(prod.precio) || 0,
         originalPrice: Number(prod.precio) || 0,
-        type: 'escalera'
-      });
-
-      // Regalo automático: guante de nylon
-      state.cart.push({
-        cartId: ++state.cartSeq,
-        sku: 'GUANTE-NYLON',
-        nombre: 'Guante de nylon (regalo)',
-        precio: 0,
-        originalPrice: 0,
-        type: 'regalo'
+        type: 'producto'
       });
 
       actualizarContador();
