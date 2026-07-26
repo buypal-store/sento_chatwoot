@@ -1,5 +1,6 @@
 // Imágenes personalizadas por SKU (sobrescriben la automática "imagenes/SKU.jpeg")
 const IMAGENES_MANUALES = {
+  "ESCALERA-FIBRA-VIDRIO-5":      "imagenes/fibra-de-vidrio-5-pasos.png",
   "GUANTES-NYLON":                "imagenes/guantes-nylon",
   "ESCALERA-2-PASOS":             "imagenes/escalera-2-pasos.jpg",
   "ESCALERA-3-PASOS":             "imagenes/escalera-3-pasos.jpg",
