@@ -22,7 +22,7 @@ const IMAGENES_MANUALES = {
   "PRETUL-ESCALERA-4-PASOS":      "imagenes/pretul-escalera-4-pasos.jpg",
   "ESCALERA-TELES-10":            "imagenes/escalera-teles-10.jpg",
   "TRUPER-ESCALERA-TELES-7":      "imagenes/truper-escalera-teles-7.jpg",
-  "ESCALERA-TELES-TIJERA-12":     "imagenes/escalera-teles-tijera-12.jpg",
+  "ESCALERA-TELES-TIJERA-12":     "imagenes/escalera-teles-tijera-12-plegada.jpg",
 };
 
 
