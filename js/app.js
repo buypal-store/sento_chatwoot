@@ -84,6 +84,17 @@ function renderGrid() {
         type: 'producto'
       });
 
+const guante = (window.productosData || []).find(p => p.sku === "GUANTES-NYLON");
+if (guante && Number(guante.stock) > 0) {
+  state.cart.push({
+    cartId: ++state.cartSeq,
+    sku: guante.sku,
+    nombre: guante.nombre || "Guante de Nylon (Regalo)",
+    precio: 0,
+    originalPrice: 0,
+    type: 'regalo'
+  });
+}
       actualizarContador();
       this.textContent = '✓ Agregado';
       setTimeout(() => { this.textContent = 'Agregar'; }, 600);
