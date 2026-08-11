@@ -23,6 +23,7 @@ const IMAGENES_MANUALES = {
   "ESCALERA-TELES-10":            "imagenes/escalera-teles-10.jpg",
   "TRUPER-ESCALERA-TELES-7":      "imagenes/truper-escalera-teles-7.jpg",
   "ESCALERA-TELES-TIJERA-12":     "imagenes/escalera-teles-tijera-12-plegada.jpg",
+  "BOMBA-AGUA-RS159";             "imagenes/bomba-agua-rs159.jpg",
 };
 
 
