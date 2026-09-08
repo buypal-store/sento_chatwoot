@@ -3,6 +3,8 @@
    (con autocompletado desde n8n)
    ========================================== */
 
+
+
 const state = {
   cart: [],
   cartSeq: 0,
