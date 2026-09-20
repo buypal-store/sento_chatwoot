@@ -95,8 +95,10 @@ function renderGrid() {
         type: 'producto'
       });
 
+// Regalo solo cuando el producto agregado NO es el propio guante
 const guante = (window.productosData || []).find(p => p.sku === "GUANTES-NYLON");
-if (guante && Number(guante.stock) > 0) {
+const esElGuante = prod.sku === "GUANTES-NYLON";
+if (!esElGuante && guante && Number(guante.stock) > 0) {
   state.cart.push({
     cartId: ++state.cartSeq,
     sku: guante.sku,
