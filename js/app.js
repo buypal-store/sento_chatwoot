@@ -95,10 +95,11 @@ function renderGrid() {
         type: 'producto'
       });
 
-// Regalo solo cuando el producto agregado NO es el propio guante
+// Guantes de regalo SOLO con las escaleras (la pestaña Escaleras del catálogo). Ferretería, Decohogar, Alfombras
+// y lo demás no dan regalo (Luis, 15/11/2026)
 const guante = (window.productosData || []).find(p => p.sku === "GUANTES-NYLON");
-const esElGuante = prod.sku === "GUANTES-NYLON";
-if (!esElGuante && guante && Number(guante.stock) > 0) {
+const esEscalera = /escalera/i.test(prod.nombre || "");
+if (esEscalera && guante && Number(guante.stock) > 0) {
   state.cart.push({
     cartId: ++state.cartSeq,
     sku: guante.sku,
