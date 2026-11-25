@@ -41,6 +41,10 @@
     franja.appendChild(nodo('div', 'font-weight:800;margin-bottom:2px', yaCargado ? '🤖 Pedido de Peldaño cargado: revisa cada campo antes de subir' : '🤖 Peldaño dejó un pedido armado'));
     const entrega = cuerpo.reparto === 'Shalom' ? 'Shalom' : (cuerpo.distrito || cuerpo.reparto || '');
     franja.appendChild(nodo('div', '', [b.resumen, entrega, cuerpo.cliente].filter(Boolean).join(' · ')));
+    // Lo que va a cargar el botón, a la vista ANTES de apretarlo (Luis 25/11: 3 pedidos salieron a otra ciudad sin que se notara)
+    const destino = cuerpo.reparto === 'Shalom' ? (b.sede ? 'SHALOM ' + b.sede : String(cuerpo.direccion || '')) : [cuerpo.direccion, cuerpo.distrito].filter(Boolean).join(', ');
+    if (destino) franja.appendChild(nodo('div', 'margin-top:4px;padding:4px 8px;border-radius:6px;font-weight:700;background:rgba(250,204,21,.14);color:#fde68a', '📍 Se carga: ' + destino));
+    if (cuerpo.horario) franja.appendChild(nodo('div', 'color:#fde68a;margin-top:3px', '⏰ Horario del cliente: ' + (window.Horario ? Horario.texto(cuerpo.horario, true) : cuerpo.horario)));
     if ((b.falta || []).length) franja.appendChild(nodo('div', 'color:#fbbf24;margin-top:3px', '⚠️ Falta: ' + b.falta.join(' · ')));
     if ((b.avisos || []).length) franja.appendChild(nodo('div', 'color:#9ca3af;margin-top:3px', '👀 Revisar: ' + b.avisos.join(' · ')));
     const fila = nodo('div', 'display:flex;gap:8px;margin-top:8px;flex-wrap:wrap');
@@ -91,6 +95,8 @@
     poner('campoPlataforma', c.plataforma); poner('campoFormaPago', c.formaPago); poner('campoPago', c.pago);
     poner('campoBoleta', c.boleta); poner('campoRUC', c.ruc); poner('campoFecha', c.fecha);
     poner('campoAdelanto', c.adelanto); poner('campoEstado', 'Pendiente');
+    // Horario (horario.js): el valor va en el campo oculto y el aviso de turno se vuelve a pintar
+    if (c.horario && $('campoHorario')) { $('campoHorario').value = c.horario; const t = $('campoTurno'); if (t) t.dispatchEvent(new Event('change', { bubbles: true })); }
     cargado = b.en;
     pintar();
     if (!state.cart.length) { Avisos.mostrar('🤖 Peldaño no pudo identificar el producto: agrégalo desde el catálogo. Los datos del cliente ya están cargados.'); return; }
