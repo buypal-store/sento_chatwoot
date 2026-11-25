@@ -1,8 +1,9 @@
 /* ==========================================
-   PEDIDO ARMADO POR PELDAÑO (agente IA) — 18/11/2026
+   PEDIDO ARMADO POR EL AGENTE IA (Peldaño en Sento, Volko en Strenko) — 18/11/2026
+   Este archivo es IDÉNTICO en los tomadores que lo usan (sento_chatwoot y strenko_buypal).
    Luis y Wendy: el agente NO sube pedidos. Cuando cierra una venta deja el pedido armado y validado en el ERP
    (herramientas.agentes_ia_chats.pedido_borrador, lo arma api/shared/pedido_agente.js). Aquí se muestra una franja
-   "Peldaño dejó un pedido armado" con el botón "Cargar pedido de Peldaño": llena el carrito y los campos, y el asesor
+   "<agente> dejó un pedido armado" con el botón "Cargar pedido de <agente>": llena el carrito y los campos, y el asesor
    REVISA y sube como siempre con "Subir pedido". Nada se sube solo.
    - Pide el borrador a api/tomadorIADB con { soloBorrador: true } (rápido: no lee el chat ni usa IA).
    - El ERP deja de entregarlo cuando ya se subió un pedido de ese chat, así no se sube dos veces.
@@ -13,6 +14,7 @@
   'use strict';
   const API = 'https://erp.buypal.com.pe/api/tomadorIADB';
   const conv = new URLSearchParams(window.location.search).get('conversation_id') || '';
+  const BOT = /strenko/i.test(window.location.pathname + ' ' + window.location.hostname + ' ' + (window.catalogoId === 'bicicletas' ? 'strenko' : '')) ? 'Volko' : 'Peldaño';
   let borrador = null, cargado = '', oculto = '', franja = null, vueltas = 0;
   const $ = id => document.getElementById(id);
   const soles = n => 'S/ ' + (Math.round(Number(n || 0) * 100) / 100);
@@ -38,7 +40,7 @@
     franja = nodo('div', 'margin:8px 12px;padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.4;' +
       'background:#0f2a1c;border:1px solid rgba(34,197,94,.55);color:#e5e7eb;box-shadow:0 6px 18px rgba(0,0,0,.35)');
     const yaCargado = cargado === b.en;
-    franja.appendChild(nodo('div', 'font-weight:800;margin-bottom:2px', yaCargado ? '🤖 Pedido de Peldaño cargado: revisa cada campo antes de subir' : '🤖 Peldaño dejó un pedido armado'));
+    franja.appendChild(nodo('div', 'font-weight:800;margin-bottom:2px', yaCargado ? `🤖 Pedido de ${BOT} cargado: revisa cada campo antes de subir` : `🤖 ${BOT} dejó un pedido armado`));
     const entrega = cuerpo.reparto === 'Shalom' ? 'Shalom' : (cuerpo.distrito || cuerpo.reparto || '');
     franja.appendChild(nodo('div', '', [b.resumen, entrega, cuerpo.cliente].filter(Boolean).join(' · ')));
     // Lo que va a cargar el botón, a la vista ANTES de apretarlo (Luis 25/11: 3 pedidos salieron a otra ciudad sin que se notara)
@@ -47,9 +49,12 @@
     if (cuerpo.horario) franja.appendChild(nodo('div', 'color:#fde68a;margin-top:3px', '⏰ Horario del cliente: ' + (window.Horario ? Horario.texto(cuerpo.horario, true) : cuerpo.horario)));
     if ((b.falta || []).length) franja.appendChild(nodo('div', 'color:#fbbf24;margin-top:3px', '⚠️ Falta: ' + b.falta.join(' · ')));
     if ((b.avisos || []).length) franja.appendChild(nodo('div', 'color:#9ca3af;margin-top:3px', '👀 Revisar: ' + b.avisos.join(' · ')));
+    // Pago: en rojo y aparte mientras el banco no lo confirme (Wendy 25/11); se vuelve a mirar cada 45 s
+    if (b.pago) franja.appendChild(nodo('div', b.pago.ok ? 'margin-top:6px;font-weight:700;color:#86efac'
+      : 'margin-top:6px;padding:5px 8px;border-radius:6px;font-weight:800;background:rgba(239,68,68,.18);color:#fca5a5', (b.pago.ok ? '✅ ' : '🔴 ') + b.pago.texto));
     const fila = nodo('div', 'display:flex;gap:8px;margin-top:8px;flex-wrap:wrap');
     const btn = nodo('button', 'padding:8px 12px;border:0;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;background:#22c55e;color:#04140b',
-      yaCargado ? 'Volver a cargar' : 'Cargar pedido de Peldaño');
+      yaCargado ? 'Volver a cargar' : 'Cargar pedido de ' + BOT);
     btn.type = 'button';
     btn.addEventListener('click', cargar);
     const cerrar = nodo('button', 'padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;font-size:13px;background:transparent;color:#e5e7eb', 'Ocultar');
@@ -72,7 +77,7 @@
   async function cargar() {
     const b = borrador;
     if (!b || !b.body) return;
-    if (state.cart.length && !(await Avisos.preguntar('El carrito ya tiene productos.\n\n¿Reemplazarlos por el pedido que armó Peldaño?'))) return;
+    if (state.cart.length && !(await Avisos.preguntar('El carrito ya tiene productos.\n\n¿Reemplazarlos por el pedido que armó ' + BOT + '?'))) return;
     // Carrito: las líneas repetidas del pedido se juntan en una con su cantidad (al subir se vuelven a expandir)
     const grupos = [];
     (b.body.productos || []).forEach(function (p) {
@@ -99,7 +104,7 @@
     if (c.horario && $('campoHorario')) { $('campoHorario').value = c.horario; const t = $('campoTurno'); if (t) t.dispatchEvent(new Event('change', { bubbles: true })); }
     cargado = b.en;
     pintar();
-    if (!state.cart.length) { Avisos.mostrar('🤖 Peldaño no pudo identificar el producto: agrégalo desde el catálogo. Los datos del cliente ya están cargados.'); return; }
+    if (!state.cart.length) { Avisos.mostrar('🤖 ' + BOT + ' no pudo identificar el producto: agrégalo desde el catálogo. Los datos del cliente ya están cargados.'); return; }
     abrirPedidoFinal();   // abre el formulario: la IA de siempre completa SOLO lo que quedó vacío (adelanto por capturas, etc.)
   }
 
@@ -108,7 +113,7 @@
     if (!conv) return;
     const r = await pedir();
     if (r === false) { if (borrador) { borrador = null; pintar(); } }   // ya se subió (o caducó): la franja se va
-    else if (r && (!borrador || borrador.en !== r.en)) { borrador = r; pintar(); }
+    else if (r && (!borrador || borrador.en !== r.en || JSON.stringify(borrador.pago) !== JSON.stringify(r.pago))) { borrador = r; pintar(); }
     if (++vueltas < 40) setTimeout(revisar, r === null && vueltas < 8 ? 4000 : 45000);
   }
 
